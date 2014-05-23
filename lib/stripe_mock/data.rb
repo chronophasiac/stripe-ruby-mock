@@ -32,7 +32,7 @@ module StripeMock
 
     def self.mock_charge(params={})
       {
-        id: "ch_1fD6uiR9FAA2zc",
+        id: "ch_#{random_string(24)}",
         object: "charge",
         created: 1366194027,
         livemode: false,
@@ -65,7 +65,7 @@ module StripeMock
         captured: params.has_key?(:capture) ? params.delete(:capture) : true,
         refunds: [
         ],
-        balance_transaction: "txn_2dyYXXP90MN26R",
+        balance_transaction: "txn_#{random_string(24)}",
         failure_message: nil,
         failure_code: nil,
         amount_refunded: 0,
@@ -87,7 +87,7 @@ module StripeMock
             currency: "usd",
             created: 1380208998,
             object: "refund",
-            balance_transaction: "txn_2dyYXXP90MN26R"
+            balance_transaction: "txn_#{random_string(24)}"
           }
         ],
         amount_refunded: params[:amount]
@@ -417,6 +417,10 @@ module StripeMock
         :deleted => true,
         :id => "di_test_coupon"
       }
+    end
+
+    def self.random_string(length)
+      (36**(length-1) + rand(36**length - 36**(length-1))).to_s(36)
     end
   end
 end
